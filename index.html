@@ -1,15 +1,103 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chemistry</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <canvas id="ctx"></canvas>
-    <div id="debug"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<html lang="en" style="overflow: hidden;">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/typescript.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Chemistry</title>
+	<link rel="stylesheet" href="style.css">
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+
+	<div id="loader"
+		style="position: absolute;left: 50%; transform: translateX(-50%); background-color: #212121;width: 300vw;height: 200vh;z-index: 1;text-align: center;line-height: 200vh;font-size: 20vh;transition: ease-in-out 1s;">
+	</div>
+	<canvas id="ctx"></canvas>
+	<div id="interface" style="display: none;">
+		<!-- <div id="debug" class="hidden"></div> -->
+		<div id="tooltip" class="hidden"></div>
+		<div id="controls">
+			<div id="mix" class="btn hidden">Amestecă</div>
+			<div id="pour" class="btn hidden">Toarnă</div>
+			<div id="return" class="btn hidden">Pune înapoi</div>
+		</div>
+
+		<div id="notebook">
+			<h2>Notițe</h2>
+			<div id="results"></div>
+		</div>
+		<div id="chart">
+			<canvas id="c_canv"></canvas>
+			<div id="order"></div>
+		</div>
+
+		<div id="tutorial">
+			<h2>Mod de lucru</h2>
+			<ol>
+				<li>În 4 eprubete se pun câte 2, 3, 4, 5 mL Tiosulfat de sodiu
+					<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>
+				</li>
+				<li>Fiecare eprubetă se completează cu <b>H<sub>2</sub>O</b> până când se obține volumul de 5mL în cele
+					4
+					eprubete
+				</li>
+				<li>În alte 4 eprubete se pun câte 5mL Acid Sulfuric <b>H<sub>2</sub>SO<sub>4</sub></b></li>
+				<li>Pe rând, în fiecare eprubetă dintre primele 4, se pune câte o eprubetă cu
+					<b>H<sub>2</sub>SO<sub>4</sub></b>,
+					se agită bine, după care se cronometrează timpul până la apariția particulelor de sulf coloidal
+				</li>
+				<li>Se calculează concentrația molară de <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>, urmată de
+					log<sub>10</sub> al acesteia și al timpului</li>
+				<li>Se realizează graficul dependenței -lg(&Delta;t) = f(CNa<sub>2</sub>S<sub>2</sub>O<sub>3</sub>)</li>
+				<li>Se calculează panta m și intersecția cu axa ordonatelor k&prime;</li>
+				<li>Se calculează timpul de înjumătățire și ordinul reacției</li>
+			</ol>
+			<h2>Tutorial</h2>
+			<ul>
+				<li>Selectează 2 recipiente pentru a turna din primul în cel de-al doilea</li>
+				<li>Când condițiile amestecului sunt îndeplinite, butonul <b>START</b> va apărea lângă celălalte</li>
+				<li>Odată apăsat, butonul va porni reacția și un cronometru</li>
+				<li>Când se fac vizibile particule în eprubetă, apasă butonul <b>STOP</b>, datele importante vor fi
+					salvate
+					în
+					<b>NOTIȚE</b> (stânga jos)
+				</li>
+				<li>După efectuarea celor 4 reacții, va apărea <b>Graficul</b> (dreapta jos) unde se vor calcula automat
+					rezultatele</li>
+			</ul>
+			<h2>Autori</h2>
+			<ul>
+				<li>Asăvoae Cosmin-Ștefan</li>
+				<li>Lungoci Ștefan</li>
+				<li>Alexe Radu-Mihai</li>
+			</ul>
+		</div>
+		<div id="open1"></div>
+		<div id="open2" class="hidden"></div>
+		<div id="open3"></div>
+		<div id="capacity" class="hidden"></div>
+
+	</div>
+
+
+	<!-- 
+		Cateva statistici amuzante:
+			Memeuri cu garfield UAAA: peste 20
+			Brainrot quiz: 16
+			Skibidi: 3
+			Injuraturi in timpul proiectului: prea multe
+			Linii de cod scrise in total (si ce s-a sters): in jur de vreo 2000-2500
+			Sticle de vin baute: 3
+		Vreo fata si pentru mine: @__cosmin29
+	 -->
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

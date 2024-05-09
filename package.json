@@ -4,16 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 80 --host 192.168.1.135",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --port 80 --host 192.168.1.135"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.41",
+    "@types/mathjax": "^0.0.40",
+    "@types/regression": "^2.0.6",
     "@types/three": "^0.164.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "chart.js": "^4.4.2",
+    "mathjax": "^3.2.2",
+    "regression": "^2.0.1",
     "three": "^0.164.1",
     "three-csg-ts": "^3.1.14"
   }
