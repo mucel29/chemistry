@@ -591,28 +591,6 @@ openTutorial?.addEventListener("click", () =>
 
 let chartOpened = false;
 
-let chartFlash = setInterval(() =>
-{
-    if (chartOpened)
-    {
-        //@ts-ignore
-        openChart.style.background = "#87da72"
-        clearInterval(chartFlash);
-        return
-    }
-
-    //@ts-ignore
-    if (openChart.style.background == "rgb(135, 218, 114)")
-    {
-        //@ts-ignore
-        openChart.style.background = "#fafafa"
-    } else
-    {
-        //@ts-ignore
-        openChart.style.background = "#87da72"
-    }
-
-}, 750)
 
 openChart?.addEventListener("click", () =>
 {
@@ -691,8 +669,8 @@ mixBtn?.addEventListener("mouseup", (e) =>
     else //if (computeTime(interaction[1]) < totalTime)
     {
         reaction = false;
-        if (results.length > 4)
-            return;
+        // if (results.length > 4)
+        //     return;
 
         let lt = Math.log10(totalTime / 1000);
         let lc = Math.log10(interaction[1].getFillage(tio))
@@ -711,6 +689,13 @@ mixBtn?.addEventListener("mouseup", (e) =>
         //console.log(results);
         //notebook?.classList.add("cover")
         openNote?.click();
+
+        if (results.length >= 2)
+        {
+            computeChart();
+            openChart?.classList.remove("hidden")
+        }
+
     }
 
     //@ts-ignore
@@ -721,17 +706,15 @@ mixBtn?.addEventListener("mouseup", (e) =>
         MathJax.typeset();
     })
 
-    if (results.length >= 4)
-    {
-        computeChart();
-        openChart?.classList.remove("hidden")
-    }
+    
 
 })
 
 //@ts-ignore
 let orderElement: HTMLDivElement = document.getElementById("order");
 
+//@ts-ignore
+let chart: Chart = null;
 
 function computeChart()
 {
@@ -778,7 +761,13 @@ function computeChart()
         ]
     };
 
-    let chart = new Chart(
+    if (chart != null)
+    {
+        chart.destroy()
+    }
+
+    //@ts-ignore
+    chart = new Chart(
         //@ts-ignore
         document.getElementById("c_canv").getContext("2d"),
         {
@@ -812,7 +801,34 @@ function computeChart()
             }
             
         }
-    ).render()
+    )
+
+    chartOpened = false;
+
+    let chartFlash = setInterval(() =>
+        {
+            if (chartOpened)
+            {
+                //@ts-ignore
+                openChart.style.background = "#87da72"
+                clearInterval(chartFlash);
+                return
+            }
+        
+            //@ts-ignore
+            if (openChart.style.background == "rgb(135, 218, 114)")
+            {
+                //@ts-ignore
+                openChart.style.background = "#fafafa"
+            } else
+            {
+                //@ts-ignore
+                openChart.style.background = "#87da72"
+            }
+        
+        }, 750)
+
+    chart.render();
     
 
     let linearf = (n: number) => gradient * n + yinter;
@@ -983,6 +999,7 @@ renderer.domElement.addEventListener("mousemove", (e) =>
     let intersects = raycaster.intersectObjects(interactableObjects, false);
     if (intersects.length > 0)
     {
+        document.body.style.cursor = "pointer";
         let inter = intersects[0];
         let hld = holderMap.get(inter.object.uuid);
         let str = "";
@@ -1007,6 +1024,8 @@ renderer.domElement.addEventListener("mousemove", (e) =>
         
     } else
     {
+        document.body.style.cursor = "default";
+
         hoverPass.selectedObjects = []
         //@ts-ignore
         tooltipElement.classList.add("hidden");
@@ -1192,10 +1211,11 @@ async function setup()
         if (idx >= st.length)
         {
             loader.style.opacity = "0";
-            setTimeout(() =>
+            loader.addEventListener("transitionend", function list()
             {
                 loader.classList.add("hidden")
-            }, 2000)
+                loader.removeEventListener("transitionend", list);
+            })
             clearInterval(tanim);
             return;
         }

@@ -115,6 +115,7 @@ h2.title
 #open1:hover
 {
   background-color: #28587B;
+  cursor: pointer;
 }
 
 #open2
@@ -132,6 +133,7 @@ h2.title
 #open2:hover
 {
   background-color: #87da72;
+  cursor: pointer;
 }
 
 #open3
@@ -149,6 +151,7 @@ h2.title
 #open3:hover
 {
   background-color: #FFE45E;
+  cursor: pointer;
 }
 
 
@@ -206,6 +209,10 @@ h2.title
   box-sizing: border-box;
 }
 
+#tutorial *:hover
+{
+  cursor: text;
+}
 
 #tutorial.cover
 {
@@ -220,17 +227,21 @@ h2.title
   padding: 1rem;
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
-  background-color: #28587B;
-  color: #fafafa;
+  background-color: #fafafa;
+  color: #28587B;
   border-radius: 5px;
   user-select: none;
-  border: 2px solid #00000000;
   box-sizing: border-box;
+
+  transition: ease-in-out 0.25s;
+
 }
 
 .btn:hover
 {
-  border-color: #fafafa;
+  background-color: #28587B;
+  color: #fafafa;
+  cursor: pointer;
 }
 
 #capacity
