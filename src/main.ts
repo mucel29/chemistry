@@ -1248,7 +1248,7 @@ async function setup()
         loader.innerHTML += st[idx];
         idx++;
 
-    }, 1200 / st.length)
+    }, 200)
     
     //let table = await getMesh("./assets/table/table3.gltf");
     let table = (await glftLoader.loadAsync("./assets/table/table3.gltf")).scene;
