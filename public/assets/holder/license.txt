@@ -1,0 +1,11 @@
+Model Information:
+* title:	Test Tube Holder
+* source:	https://sketchfab.com/3d-models/test-tube-holder-8841d9db0fda442388b22a8cd5baf25b
+* author:	Jordan Gerhardt (https://sketchfab.com/JGerhardt)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Test Tube Holder" (https://sketchfab.com/3d-models/test-tube-holder-8841d9db0fda442388b22a8cd5baf25b) by Jordan Gerhardt (https://sketchfab.com/JGerhardt) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
