@@ -8,6 +8,17 @@
 	<title>Chemistry</title>
 	<link rel="stylesheet" href="style.css">
 
+	<script type="text/x-mathjax-config">
+		MathJax = {
+			loader: {load: ['[tex]/mhchem']},
+			tex: {
+				inlineMath: [['$', '$'], ["\\(", "\\)"]],
+				processEscapes: true,
+				packages: {'[+]': ['mhchem']}
+			}
+		}
+	  </script>
+
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -37,7 +48,57 @@
 			<div id="order"></div>
 		</div>
 
-		<div id="tutorial">
+		<div id="tutorial" class="">
+			<h2 class="title">DETERMINAREA ORDINULUI PARŢIAL DE REACŢIE</h2>
+			<br><br>
+			<h2>Scopul lucrării</h2>
+			Determinarea ordinului parţial de reacţie în raport cu <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> pentru reacţia dintre <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> şi <b>H<sub>2</sub>SO<sub>4</sub></b>
+			<br><br>
+			<h2>Principiul lucrării</h2>
+			Pentru o reacţie chimică scrisă în formă generală:
+			<br>
+			\[
+				\nu_1A_1 + \nu_2A_2 + ... + \nu_iA_i  \rightarrow  \nu^{\prime}_1A_1^{\prime} + \nu_2^{\prime}A_2^{\prime} + ... + \nu_i^{\prime}A_i^{\prime}
+			\]
+			\(A_1, A_2, ..., A_i \rightarrow\) reactanţi <br>
+			\(A^{\prime}_1, A^{\prime}_2, ..., A^{\prime}_i \rightarrow \) produşi de reacţie <br>
+			\(\nu_1, \nu_2, ..., \nu_i \rightarrow \) coeficienţi stoechiometrici ai reactanţilor <br>
+			\(\nu^{\prime}_1, \nu^{\prime}_2, ..., \nu^{\prime}_i \rightarrow\) coeficienţi stoechiometrici ai produşilor de reacţie; <br> <br>
+
+			<b><i>Viteza de reacţie</i></b> 
+			<br><br>
+			\[
+				\nu_R = -\frac{1}{\nu_i}\frac{dc_i}{dt} = \frac{1}{\nu^{\prime}_i}\frac{dc^{\prime}_i}{dt}
+			\] 
+			<br>
+			<b><i>Constanta de viteză k</i></b> are o semnificaţie fizică precisă, ea este viteza reacţiei pentru care concentraţia reactanţilor este unitară.
+			<br>
+			Suma ordinelor parţiale de reacţie reprezintă <b>ordinul total de reacţie</b>:
+			<br><br>
+			\[
+				a = \sum a_i
+			\]
+			<br>
+			<b><i>Timpul de înjumătăţire</i></b> &nbsp;\(t_{\frac{1}{2}}\)&nbsp; reprezintă timpul în care se consumă jumătate din concentraţia iniţială şi se calculează cu relaţia:
+			<br><br>
+			\[
+				t_{\frac{1}{2}} = \frac{2^{(a-1)}-1}{(a-1)k} \cdot \frac{1}{c^{(a-1)}}
+			\]
+			\[
+				a = 1 \implies t_{\frac{1}{2}} = \frac{ln2}{k_1}
+			\]
+			<br>
+			<b>Reacţia</b> dintre tiosulfatul de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi acidul sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>) este uşor de urmărit, deoarece unul din produşii de reacţie, sulful, se separă sub formă de particule coloidale, care produc opalescenţa soluţiei.
+			<br><br>
+			\[
+				\ce{Na2S2O3 + H2SO4 \longrightarrow Na2SO4 + SO2 + H2O + S}
+			\]
+			<br>
+			<h2>Aparatură şi substanţe</h2>
+			<b>Aparatură</b>: pahar berzelius, eprubete, cronometru
+			<br>
+			<b>Substanţe</b>: soluţii de tiosulfat de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi de acid sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>)
+			<br><br>
 			<h2>Mod de lucru</h2>
 			<ol>
 				<li>În 4 eprubete se pun câte 2, 3, 4, 5 mL Tiosulfat de sodiu
@@ -58,6 +119,7 @@
 				<li>Se calculează panta m și intersecția cu axa ordonatelor k&prime;</li>
 				<li>Se calculează timpul de înjumătățire și ordinul reacției</li>
 			</ol>
+			<br><br>
 			<h2>Tutorial</h2>
 			<ul>
 				<li>Selectează 2 recipiente pentru a turna din primul în cel de-al doilea</li>
@@ -71,6 +133,7 @@
 				<li>După efectuarea celor 4 reacții, va apărea <b>Graficul</b> (dreapta jos) unde se vor calcula automat
 					rezultatele</li>
 			</ul>
+			<br><br>
 			<h2>Autori</h2>
 			<ul>
 				<li>Asăvoae Cosmin-Ștefan</li>

@@ -84,6 +84,12 @@ h2
   margin-top: 0.5rem;
 }
 
+h2.title
+{
+  font-size: 1.25rem;
+  text-align: center;
+}
+
 /* #notebook:hover
 {
   left: -42%;
@@ -179,7 +185,8 @@ h2
 {
   overflow-y: scroll;
   overflow-x: hidden;
-  scrollbar-width: none;
+  scrollbar-width:thin;
+  scrollbar-color: #fafafa #aaaaaa;
   background-color: #fafafa;
   left:1vh;
   transform: translateY(-50%);
@@ -192,8 +199,8 @@ h2
   border-radius: 0.5em;
   color: #111;
   text-align: left;
-  font-size: 2.5vh;
-  padding: 2vh;
+  font-size: .9em;
+  padding: 2.5vh;
   padding-top: 7vh;
   padding-bottom: 7vh;
   box-sizing: border-box;
@@ -265,10 +272,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
 #app {
   max-width: 1280px;
