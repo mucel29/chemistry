@@ -662,6 +662,8 @@ function animateMix()
 
 mixBtn?.addEventListener("mouseup", (e) =>
 {
+    if (notebook?.classList.contains("cover"))
+        openNote?.click();
     if (totalTime < computeTime(interaction[1]) && !execReact)
     {
         animateMix();
@@ -854,7 +856,8 @@ function computeChart()
 
 returnBtn?.addEventListener("mouseup", (e) =>
 {
-    notebook?.classList.remove("cover")
+    if (notebook?.classList.contains("cover"))
+        openNote?.click();
     clearInteraction()
 })
 
@@ -869,10 +872,21 @@ pourBtn?.addEventListener("mousedown", () =>
 
 pourBtn?.addEventListener("mouseup", () =>
 {
-    notebook?.classList.remove("cover")
+    if (notebook?.classList.contains("cover"))
+        openNote?.click();
     pouring = false;
     //console.log("stop!");
 
+})
+
+document.getElementById("ctx")?.addEventListener("mouseup", () =>
+{
+    if (notebook?.classList.contains("cover"))
+        openNote?.click();
+    if (chartElement?.classList.contains("cover"))
+        openChart?.click();
+    if (tutorial?.classList.contains("cover"))
+        openTutorial?.click();
 })
 
 let rotSpeed = 45 / 1000
@@ -939,7 +953,7 @@ function render() {
         {
             mixBtn?.classList.add("hidden")
         }
-        if (interaction[1].reacted || results.length > 4)
+        if (interaction[1].reacted)
             mixBtn?.classList.add("hidden")
     } else
     {
@@ -982,6 +996,18 @@ function delta(): number
 
     return t;
 }
+
+document.addEventListener("keyup", (e) =>
+{
+    if (e.key === 'k')
+    {
+        if (reaction)
+        {
+            let ttime = computeTime(interaction[1])
+            totalTime = ttime > (60 * 1000) ? ttime - (10 * 1000) : ttime * 0.9
+        }
+    }
+})
 
 const tooltipElement = document.getElementById("tooltip");
 
@@ -1222,7 +1248,7 @@ async function setup()
         loader.innerHTML += st[idx];
         idx++;
 
-    }, 100)
+    }, 1200 / st.length)
     
     //let table = await getMesh("./assets/table/table3.gltf");
     let table = (await glftLoader.loadAsync("./assets/table/table3.gltf")).scene;
