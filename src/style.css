@@ -2,10 +2,8 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #fafafa;
+  background-color: #212121;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,6 +14,7 @@
 html
 {
   overflow: hidden;
+  color: #fafafa;
 }
 
 #debug
@@ -42,7 +41,7 @@ html
   font-size: 3vh;
   background: #212121b7;
   padding: 0.5rem;
-
+  color: #fafafa;
   border: 3px solid #28587B;
   border-radius: 5px;
   user-select: none;
@@ -241,6 +240,7 @@ h2
   padding: 0.5rem;
   user-select: none;
   text-align: center;
+  color: #fafafa;
 }
 
 .hidden
