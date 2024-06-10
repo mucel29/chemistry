@@ -39,112 +39,242 @@
 			<div id="return" class="btn hidden">Pune înapoi</div>
 		</div>
 
-		<div id="notebook">
-			<h2>Notițe</h2>
-			<div id="results"></div>
-		</div>
-		<div id="chart">
-			<canvas id="c_canv"></canvas>
-			<div id="order"></div>
-		</div>
-
-		<div id="tutorial" class="">
-			<h2 class="title">DETERMINAREA ORDINULUI PARŢIAL DE REACŢIE</h2>
-			<br><br>
-			<h2>Scopul lucrării</h2>
-			<span>Determinarea ordinului parţial de reacţie în raport cu <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> pentru reacţia dintre <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> şi <b>H<sub>2</sub>SO<sub>4</sub></b></span>
-			<br><br>
-			<h2>Principiul lucrării</h2>
-			<span>Pentru o reacţie chimică scrisă în formă generală:</span>
-			<br>
-			\[
-				\nu_1A_1 + \nu_2A_2 + ... + \nu_iA_i  \rightarrow  \nu^{\prime}_1A_1^{\prime} + \nu_2^{\prime}A_2^{\prime} + ... + \nu_i^{\prime}A_i^{\prime}
-			\]
-			\(A_1, A_2, ..., A_i \rightarrow\) reactanţi <br>
-			\(A^{\prime}_1, A^{\prime}_2, ..., A^{\prime}_i \rightarrow \) produşi de reacţie <br>
-			\(\nu_1, \nu_2, ..., \nu_i \rightarrow \) coeficienţi stoechiometrici ai reactanţilor <br>
-			\(\nu^{\prime}_1, \nu^{\prime}_2, ..., \nu^{\prime}_i \rightarrow\) coeficienţi stoechiometrici ai produşilor de reacţie; <br> <br>
-
-			<b><i>Viteza de reacţie</i></b> 
-			<br><br>
-			\[
-				\nu_R = -\frac{1}{\nu_i}\frac{dc_i}{dt} = \frac{1}{\nu^{\prime}_i}\frac{dc^{\prime}_i}{dt}
-			\] 
-			<br>
-			<span><b><i>Constanta de viteză k</i></b> are o semnificaţie fizică precisă, ea este viteza reacţiei pentru care concentraţia reactanţilor este unitară.</span>
-			<br>
-			<span>Suma ordinelor parţiale de reacţie reprezintă <b>ordinul total de reacţie</b>:</span>
-			<br><br>
-			\[
-				a = \sum a_i
-			\]
-			<br>
-			<span><b><i>Timpul de înjumătăţire</i></b> &nbsp;\(t_{\frac{1}{2}}\)&nbsp; reprezintă timpul în care se consumă jumătate din concentraţia iniţială şi se calculează cu relaţia:</span>
-			<br><br>
-			\[
-				t_{\frac{1}{2}} = \frac{2^{(a-1)}-1}{(a-1)k} \cdot \frac{1}{c^{(a-1)}}
-			\]
-			\[
-				a = 1 \implies t_{\frac{1}{2}} = \frac{ln2}{k_1}
-			\]
-			<br>
-			<span><b>Reacţia</b> dintre tiosulfatul de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi acidul sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>) este uşor de urmărit, deoarece unul din produşii de reacţie, sulful, se separă sub formă de particule coloidale, care produc opalescenţa soluţiei.</span>
-			<br><br>
-			\[
-				\ce{Na2S2O3 + H2SO4 \longrightarrow Na2SO4 + SO2 + H2O + S}
-			\]
-			<br>
-			<h2>Aparatură şi substanţe</h2>
-			<span><b>Aparatură</b>: pahar berzelius, eprubete, cronometru</span>
-			<br>
-			<span><b>Substanţe</b>: soluţii de tiosulfat de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi de acid sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>)</span>
-			<br><br>
-			<h2>Mod de lucru</h2>
-			<ol>
-				<li>În 4 eprubete se pun câte 2, 3, 4, 5 mL Tiosulfat de sodiu
-					<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>
-				</li>
-				<li>Fiecare eprubetă se completează cu <b>H<sub>2</sub>O</b> până când se obține volumul de 5mL în cele
-					4
-					eprubete
-				</li>
-				<li>În alte 4 eprubete se pun câte 5mL Acid Sulfuric <b>H<sub>2</sub>SO<sub>4</sub></b></li>
-				<li>Pe rând, în fiecare eprubetă dintre primele 4, se pune câte o eprubetă cu
-					<b>H<sub>2</sub>SO<sub>4</sub></b>,
-					se agită bine, după care se cronometrează timpul până la apariția particulelor de sulf coloidal
-				</li>
-				<li>Se calculează concentrația molară de <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>, urmată de
-					log<sub>10</sub> al acesteia și al timpului</li>
-				<li>Se realizează graficul dependenței -lg(&Delta;t) = f(CNa<sub>2</sub>S<sub>2</sub>O<sub>3</sub>)</li>
-				<li>Se calculează panta m și intersecția cu axa ordonatelor k&prime;</li>
-				<li>Se calculează timpul de înjumătățire și ordinul reacției</li>
-			</ol>
-			<br><br>
-			<h2>Tutorial</h2>
-			<ul>
-				<li>Selectează 2 recipiente pentru a turna din primul în cel de-al doilea</li>
-				<li>Când condițiile amestecului sunt îndeplinite, butonul <b>START</b> va apărea lângă celălalte</li>
-				<li>Odată apăsat, butonul va porni reacția și un cronometru</li>
-				<li>Când se fac vizibile particule în eprubetă, apasă butonul <b>STOP</b>, datele importante vor fi
-					salvate
-					în
-					<b>NOTIȚE</b> (stânga jos)
-				</li>
-				<li>După efectuarea a cel puțin 2 reacții, va apărea <b>Graficul</b> (dreapta jos) unde se vor calcula automat
-                    rezultatele (cu cât sunt mai multe reacții efectuate, cu atât graficul va fi mai precis)</li>
-			</ul>
-			<br><br>
-			<h2>Autori</h2>
-			<ul>
-				<li>Asăvoae Cosmin-Ștefan</li>
-				<li>Lungoci Ștefan</li>
-				<li>Alexe Radu-Mihai</li>
-			</ul>
-		</div>
-		<div id="open1"></div>
-		<div id="open2" class="hidden"></div>
-		<div id="open3"></div>
 		<div id="capacity" class="hidden"></div>
+
+		<div id="part0">
+			<div id="btn1">
+				ORDINUL PARȚIAL DE REACȚIE
+			</div>
+			<div id="btn2">
+				ENERGIA DE ACTIVARE
+			</div>
+		</div>
+
+		<div id="part1">
+			<div id="notebook">
+				<h2>Notițe</h2>
+				<div id="results"></div>
+			</div>
+			<div id="chart">
+				<canvas id="c_canv"></canvas>
+				<div id="order"></div>
+			</div>
+	
+			<div id="tutorial" class="">
+				<h2 class="title">DETERMINAREA ORDINULUI PARŢIAL DE REACŢIE</h2>
+				<br><br>
+				<h2>Scopul lucrării</h2>
+				<span>Determinarea ordinului parţial de reacţie în raport cu <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> pentru reacţia dintre <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> şi <b>H<sub>2</sub>SO<sub>4</sub></b></span>
+				<br><br>
+				<h2>Principiul lucrării</h2>
+				<span>Pentru o reacţie chimică scrisă în formă generală:</span>
+				<br>
+				\[
+					\nu_1A_1 + \nu_2A_2 + ... + \nu_iA_i  \rightarrow  \nu^{\prime}_1A_1^{\prime} + \nu_2^{\prime}A_2^{\prime} + ... + \nu_i^{\prime}A_i^{\prime}
+				\]
+				\(A_1, A_2, ..., A_i \rightarrow\) reactanţi <br>
+				\(A^{\prime}_1, A^{\prime}_2, ..., A^{\prime}_i \rightarrow \) produşi de reacţie <br>
+				\(\nu_1, \nu_2, ..., \nu_i \rightarrow \) coeficienţi stoechiometrici ai reactanţilor <br>
+				\(\nu^{\prime}_1, \nu^{\prime}_2, ..., \nu^{\prime}_i \rightarrow\) coeficienţi stoechiometrici ai produşilor de reacţie; <br> <br>
+	
+				<b><i>Viteza de reacţie</i></b> 
+				<br><br>
+				\[
+					\nu_R = -\frac{1}{\nu_i}\frac{dc_i}{dt} = \frac{1}{\nu^{\prime}_i}\frac{dc^{\prime}_i}{dt}
+				\] 
+				<br>
+				<span><b><i>Constanta de viteză k</i></b> are o semnificaţie fizică precisă, ea este viteza reacţiei pentru care concentraţia reactanţilor este unitară.</span>
+				<br>
+				<span>Suma ordinelor parţiale de reacţie reprezintă <b>ordinul total de reacţie</b>:</span>
+				<br><br>
+				\[
+					a = \sum a_i
+				\]
+				<br>
+				<span><b><i>Timpul de înjumătăţire</i></b> &nbsp;\(t_{\frac{1}{2}}\)&nbsp; reprezintă timpul în care se consumă jumătate din concentraţia iniţială şi se calculează cu relaţia:</span>
+				<br><br>
+				\[
+					t_{\frac{1}{2}} = \frac{2^{(a-1)}-1}{(a-1)k} \cdot \frac{1}{c^{(a-1)}}
+				\]
+				\[
+					a = 1 \implies t_{\frac{1}{2}} = \frac{\ln{2}}{k_1}
+				\]
+				<br>
+				<span><b>Reacţia</b> dintre tiosulfatul de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi acidul sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>) este uşor de urmărit, deoarece unul din produşii de reacţie, sulful, se separă sub formă de particule coloidale, care produc opalescenţa soluţiei.</span>
+				<br><br>
+				\[
+					\ce{Na2S2O3 + H2SO4 \longrightarrow Na2SO4 + SO2 + H2O + S}
+				\]
+				<br>
+				<h2>Aparatură şi substanţe</h2>
+				<span><b>Aparatură</b>: pahar berzelius, eprubete, cronometru</span>
+				<br>
+				<span><b>Substanţe</b>: soluţii de tiosulfat de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi de acid sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>)</span>
+				<br><br>
+				<h2>Mod de lucru</h2>
+				<ol>
+					<li>În 4 eprubete se pun câte 2, 3, 4, 5 mL Tiosulfat de sodiu
+						<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>
+					</li>
+					<li>Fiecare eprubetă se completează cu <b>H<sub>2</sub>O</b> până când se obține volumul de 5mL în cele
+						4
+						eprubete
+					</li>
+					<li>În alte 4 eprubete se pun câte 5mL Acid Sulfuric <b>H<sub>2</sub>SO<sub>4</sub></b></li>
+					<li>Pe rând, în fiecare eprubetă dintre primele 4, se pune câte o eprubetă cu
+						<b>H<sub>2</sub>SO<sub>4</sub></b>,
+						se agită bine, după care se cronometrează timpul până la apariția particulelor de sulf coloidal
+					</li>
+					<li>Se calculează concentrația molară de <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>, urmată de
+						log<sub>10</sub> al acesteia și al timpului</li>
+					<li>Se realizează graficul dependenței -lg(&Delta;t) = f(CNa<sub>2</sub>S<sub>2</sub>O<sub>3</sub>)</li>
+					<li>Se calculează panta m și intersecția cu axa ordonatelor k&prime;</li>
+					<li>Se calculează timpul de înjumătățire și ordinul reacției</li>
+				</ol>
+				<br><br>
+				<h2>Tutorial</h2>
+				<ul>
+					<li>Selectează 2 recipiente pentru a turna din primul în cel de-al doilea</li>
+					<li>Când condițiile amestecului sunt îndeplinite, butonul <b>START</b> va apărea lângă celălalte</li>
+					<li>Odată apăsat, butonul va porni reacția și un cronometru</li>
+					<li>Când se fac vizibile particule în eprubetă, apasă butonul <b>STOP</b>, datele importante vor fi
+						salvate
+						în
+						<b>NOTIȚE</b> (stânga jos)
+					</li>
+					<li>După efectuarea a cel puțin 2 reacții, va apărea <b>Graficul</b> (dreapta jos) unde se vor calcula automat
+						rezultatele (cu cât sunt mai multe reacții efectuate, cu atât graficul va fi mai precis)</li>
+				</ul>
+				<br><br>
+				<h2>Autori</h2>
+				<ul>
+					<li>Asăvoae Cosmin-Ștefan</li>
+					<li>Lungoci Ștefan</li>
+					<li>Alexe Radu-Mihai</li>
+				</ul>
+			</div>
+			<div id="open1"></div>
+			<div id="open2" class="hidden"></div>
+			<div id="open3"></div>
+		</div>
+
+		<div id="part2">
+			<div id="temp"></div>
+			<div id="heat" class="btn">Încălzește</div>
+
+			<div id="note2">
+				<h2>Notițe</h2>
+				<div id="results2"></div>
+			</div>
+			<div id="chart2">
+				<canvas id="c_canv2"></canvas>
+				<div id="order2"></div>
+			</div>
+
+			<div id="tutorial2" class="">
+				<h2 class="title">DETERMINAREA ENERGIEI DE ACTIVARE</h2>
+				<br><br>
+				<h2>Scopul lucrării</h2>
+				<span>Determinarea energiei de activare Arrhenius pentru reacţia dintre <b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b> şi <b>H<sub>2</sub>SO<sub>4</sub></b></span>
+				<br><br>
+				<h2>Principiul lucrării</h2>
+				<span>Datele experimentale au arătat că viteza de reacţie creşte, în general, cu temperatura, iar variaţia constantei de viteză în funcţie de temperatură este studiată cu ajutorul relaţiei lui Arrhenius:</span>
+				<br>
+				\[
+					k = Ae^{-{E_a}/{RT}}
+				\]
+	
+				\(E_a \rightarrow\) energia de activare <br>
+				\(A \rightarrow \) factor preexponenţial, <br>
+				\(R \rightarrow \) constanta universală a gazelor = 1,98 \(cal/K \cdot mol\) = 8,31 \(J/K \cdot mol\)<br>
+				\(T \rightarrow\) temperatura absolută \(K\); <br> <br>
+
+				Prin logaritmarea relaţiei lui Arrhenius se obţine:
+				\[
+				\ln{k} = \ln{A} - \frac{E_a}{RT}
+				\]
+				<br>
+
+				Pentru reacţia dintre tiosulfatul de sodiu şi acidul sulfuric:
+				\[
+					\ce{Na2S2O3 + H2SO4 \longrightarrow Na2SO4 + SO2 + H2O + S}
+				\]
+
+				Rezultă următoarea relație
+
+				\[
+				\frac{1}{\Delta t} = \left(\frac{A}{\Delta c_s} \cdot c^{a_{\ce{Na2S2O3}}}_{\ce{Na2S2O3}} \cdot c^{a_{\ce{H2SO4}}}_{\ce{H2SO4}}\right)e^{-E_a / RT} = k^{\prime \prime}e^{-{E_a}/{RT}}
+				\]
+				\(k^{\prime \prime} \rightarrow\) constanta aparentă a vitezei de reacţie <br>
+
+				Prin logaritmare rezultă:
+				\[
+				\ln{\Delta t} = \frac{E_a}{RT} - \ln{k^{\prime \prime}}
+				\]
+				
+				<h2>Aparatură şi substanţe</h2>
+				<span><b>Aparatură</b>: pahar berzelius, eprubete, cronometru, bec de gaz şi sită de azbest</span>
+				<br>
+				<span><b>Substanţe</b>: soluţii de tiosulfat de sodiu (<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>) şi de acid sulfuric (<b>H<sub>2</sub>SO<sub>4</sub></b>)</span>
+				<br><br>
+				<h2>Mod de lucru</h2>
+				<ol>
+					<li>În 4 eprubete se pun câte 5 mL Tiosulfat de sodiu
+						<b>Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></b>
+					</li>
+					<li>În alte 4 eprubete se pun câte 5mL Acid Sulfuric <b>H<sub>2</sub>SO<sub>4</sub></b></li>
+					<li>
+						Cele 8 eprubete se introduc într-un pahar Berzelius care conţine apă şi în care se găseşte un termometru şi se măsoară temperatura apei T<sub>1</sub>
+					</li>
+					<li>Pe rând, în fiecare eprubetă dintre primele 4, se pune câte o eprubetă cu
+						<b>H<sub>2</sub>SO<sub>4</sub></b>,
+						se agită bine, după care se cronometrează timpul până la apariția particulelor de sulf coloidal
+					</li>
+					<li>Se calculează ln(t) si T<sup>-1</sup></li>
+					<li>Se repetă pașii, crescând temperatura cu 10&deg;C</li>
+					<li>Se realizează graficul dependenței ln(&Delta;t) = f(1/T)</li>
+					<li>Se calculează panta m și intersecția cu axa ordonatelor k&prime;&prime;</li>
+					<li>Se calculează Energia de activare</li>
+				</ol>
+				<br><br>
+				<h2>Tutorial</h2>
+				<ul>
+					<li>Selectează 2 recipiente pentru a turna din primul în cel de-al doilea</li>
+					<li>Când condițiile amestecului sunt îndeplinite, butonul <b>START</b> va apărea lângă celălalte</li>
+					<li>Odată apăsat, butonul va porni reacția și un cronometru</li>
+					<li>Când se fac vizibile particule în eprubetă, apasă butonul <b>STOP</b>, datele importante vor fi
+						salvate
+						în
+						<b>NOTIȚE</b> (stânga jos)
+					</li>
+					<li>După efectuarea a cel puțin 2 reacții, va apărea <b>Graficul</b> (dreapta jos) unde se vor calcula automat
+						rezultatele (cu cât sunt mai multe reacții efectuate, cu atât graficul va fi mai precis)</li>
+				</ul>
+				<br><br>
+				<h2>Autori</h2>
+				<ul>
+					<li>Asăvoae Cosmin-Ștefan</li>
+					<li>Lungoci Ștefan</li>
+					<li>Alexe Radu-Mihai</li>
+				</ul>
+			</div>
+
+			<div id="open4"></div>
+			<div id="open5" class="hidden"></div>
+			<div id="open6"></div>
+
+			<div id="note2">
+				<h2>Notițe</h2>
+				<div id="results2"></div>
+			</div>
+			<div id="chart2">
+				<canvas id="c_canv2"></canvas>
+				<div id="order2"></div>
+			</div>
+
+			
+
+		</div>
 
 	</div>
 

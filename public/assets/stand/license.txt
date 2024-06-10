@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tripod stand
+* source:	https://sketchfab.com/3d-models/tripod-stand-c2773043c472429c86b4ee3b28f9b156
+* author:	AmirulIqwan (https://sketchfab.com/AmirulIqwan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tripod stand" (https://sketchfab.com/3d-models/tripod-stand-c2773043c472429c86b4ee3b28f9b156) by AmirulIqwan (https://sketchfab.com/AmirulIqwan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

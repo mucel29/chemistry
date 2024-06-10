@@ -72,8 +72,11 @@ class LiquidHolder
     public currentSize = new THREE.Vector3();
     public currentCenter = new THREE.Vector3();
 
+    //room temp = 25
+    public temperature = 25;
+
     //@ts-ignore
-    private liquidMesh: THREE.Mesh = null;
+    public liquidMesh: THREE.Mesh = null;
 
     private cylinder: THREE.Mesh;
     //@ts-ignore
@@ -164,7 +167,7 @@ class LiquidHolder
     }
 
     private targetPosition: THREE.Vector3 = new THREE.Vector3();
-    private alpha: number = 0;
+    public alpha: number = 0;
     private lerpSpeed: number = 1 / 1000;
     translate(vec: THREE.Vector3, lerpSpeed: number = 1/1000)
     {
@@ -410,6 +413,7 @@ class LiquidHolder
 
     }
 
+    public order = 1;
 
     private computeLiquid()
     {
@@ -430,13 +434,15 @@ class LiquidHolder
         this.liquidMesh = res
         res.geometry.dispose();
         this.liquidMesh.material = this.liquid;
-        this.liquidMesh.renderOrder = 1
+        this.liquidMesh.renderOrder = this.order - 1;
         deb.vertices += this.liquidMesh.geometry.attributes.position.count;
         scene.add(this.liquidMesh);
     }
 }
 
 let deb: DebugInfo = {fps: 0, delta: 0, vertices: 0, additional: ""};
+
+let part = 0;
 
 let loaded = false;
 
@@ -451,8 +457,6 @@ let interaction: LiquidHolder[] = [];
 
 
 const glftLoader = new GLTFLoader();
-
-
 
 
 let interactableObjects: THREE.Mesh[] = []
@@ -493,17 +497,6 @@ composer.addPass(shaderPass)
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 
-
-
-// const geometry = new THREE.TorusGeometry(2, 0.5, 24, 96);
-// const material = new THREE.MeshBasicMaterial({ color: 0x28587B, wireframe: true });
-// const cube = new THREE.Mesh(geometry, material);
-//scene.add(cube);
-
-
-
-
-
 //const helper = new THREE.GridHelper(1000, 100)
 //scene.add( helper );
 
@@ -512,12 +505,7 @@ const returnBtn = document.getElementById("return");
 const holderCapacity = document.getElementById("capacity")
 
 const ambient = new THREE.AmbientLight(0xffffff);
-// const pinLight = new THREE.PointLight(0xffffff);
-// pinLight.position.x = 7;
-// pinLight.position.z = 10
 
-// const lightHelper = new THREE.PointLightHelper(pinLight);
-// scene.add(pinLight, lightHelper)
 scene.add( ambient);
 
 const controls = new OrbitControls( cam, renderer.domElement );
@@ -543,10 +531,25 @@ let openChart = document.getElementById("open2");
 let tutorial = document.getElementById("tutorial");
 let openTutorial = document.getElementById("open3");
 
+let notebook2 = document.getElementById("note2")
+let openNote2 = document.getElementById("open4");
+
+let chartElement2 = document.getElementById("chart2")
+let openChart2 = document.getElementById("open5");
+
+let tutorial2 = document.getElementById("tutorial2");
+let openTutorial2 = document.getElementById("open6");
+
+
 //@ts-ignore
 let resultsElement: HTMLDivElement = document.getElementById("results")
 
+//@ts-ignore
+let resultsElement2: HTMLDivElement = document.getElementById("results2")
+
+
 let tutorialOpened = false;
+let tutorialOpened2 = false;
 
 let tutorialFlash = setInterval(() =>
 {
@@ -571,6 +574,29 @@ let tutorialFlash = setInterval(() =>
 
 }, 750)
 
+let tutorialFlash2 = setInterval(() =>
+{
+    if (tutorialOpened2)
+    {
+        //@ts-ignore
+        openTutorial2.style.background = "#FFE45E"
+        clearInterval(tutorialFlash2);
+        return
+    }
+
+    //@ts-ignore
+    if (openTutorial2.style.background == "rgb(255, 228, 94)")
+    {
+        //@ts-ignore
+        openTutorial2.style.background = "#fafafa"
+    } else
+    {
+        //@ts-ignore
+        openTutorial2.style.background = "#FFE45E"
+    }
+
+}, 750)
+
 openTutorial?.addEventListener("click", () =>
 {
     if (!tutorialOpened)
@@ -589,8 +615,27 @@ openTutorial?.addEventListener("click", () =>
     }
 })
 
-let chartOpened = false;
+openTutorial2?.addEventListener("click", () =>
+{
+    if (!tutorialOpened2)
+        tutorialOpened2 = true;
 
+    notebook2?.classList.remove("cover")
+    if (tutorial2?.classList.contains("cover"))
+    {
+        tutorial2?.classList.remove("cover")
+        openTutorial2.style.background = ""
+    }
+    else
+    {
+        openTutorial2.style.background = "#FFE45E"
+        tutorial2?.classList.add("cover")
+    }
+})
+
+
+let chartOpened = false;
+let chartOpened2 = false;
 
 openChart?.addEventListener("click", () =>
 {
@@ -610,6 +655,23 @@ openChart?.addEventListener("click", () =>
     }
 })
 
+openChart2?.addEventListener("click", () =>
+{
+    if (!chartOpened2)
+        chartOpened2 = true;
+
+    if (chartElement2?.classList.contains("cover"))
+    {
+        chartElement2?.classList.remove("cover")
+        openChart2.style.background = ""
+    }
+    else
+    {
+        openChart2.style.background = "#87da72"
+        chartElement2?.classList.add("cover")
+    }
+})
+
 //notebook?.addEventListener()
 openNote?.addEventListener("click", () =>
 {
@@ -625,11 +687,26 @@ openNote?.addEventListener("click", () =>
     }
 })
 
-let idx = 1;
+openNote2?.addEventListener("click", () =>
+{
+    if (notebook2?.classList.contains("cover"))
+    {
+        notebook2.classList.remove("cover")
+        openNote2.style.background = ""
+    }
+    else
+    {
+        openNote2.style.background = "#28587B"
+        notebook2?.classList.add("cover")
+    }
+})
 
+let idx = 1;
+let idx2 = 1;
 
 
 let results: [number, number][] = []
+let results2: [number, number][] = [];
 // [
 //     [-0.3, -1.39],
 //     [-0.39, -1.44],
@@ -674,29 +751,55 @@ mixBtn?.addEventListener("mouseup", (e) =>
         // if (results.length > 4)
         //     return;
 
-        let lt = Math.log10(totalTime / 1000);
-        let lc = Math.log10(interaction[1].getFillage(tio))
-
-        results.push([lc, -lt])
-
-        //@ts-ignore
-        //notebook.innerHTML += `T<sub>${idx}</sub> = ${(totalTime / 1000).toFixed(2)}s<br>C<sup>${idx}</sup><sub>${tio}</sub> = ${interaction[1].getFillage(tio).toFixed(2)}M<br><br>`
-        //@ts-ignore 
-        resultsElement.innerHTML += `\\[t_{${idx}} = ${(totalTime / 1000).toFixed(2)}s \\implies -\\log_{10}(t_{${idx}}) = ${-lt.toFixed(2)}\\]`
-        //@ts-ignore
-        resultsElement.innerHTML += `\\[c_{Na_2S_2O_3} = ${interaction[1].getFillage(tio).toFixed(2)}M \\implies \\log_{10}(c_{Na_2S_2O_3}) = ${lc.toFixed(2)}\\]<br>`
-        //@ts-ignore
-        totalTime = 0;
-        idx++;
-        //console.log(results);
-        //notebook?.classList.add("cover")
-        openNote?.click();
-
-        if (results.length >= 2)
+        if (part === 1)
         {
-            computeChart();
-            openChart?.classList.remove("hidden")
+
+            let lt = Math.log10(totalTime / 1000);
+            let lc = Math.log10(interaction[1].getFillage(tio))
+
+            results.push([lc, -lt])
+
+            //@ts-ignore
+            //notebook.innerHTML += `T<sub>${idx}</sub> = ${(totalTime / 1000).toFixed(2)}s<br>C<sup>${idx}</sup><sub>${tio}</sub> = ${interaction[1].getFillage(tio).toFixed(2)}M<br><br>`
+            //@ts-ignore 
+            resultsElement.innerHTML += `\\[t_{${idx}} = ${(totalTime / 1000).toFixed(2)}s \\implies -\\log_{10}(t_{${idx}}) = ${-lt.toFixed(2)}\\]`
+            //@ts-ignore
+            resultsElement.innerHTML += `\\[c_{Na_2S_2O_3} = ${interaction[1].getFillage(tio).toFixed(2)}M \\implies \\log_{10}(c_{Na_2S_2O_3}) = ${lc.toFixed(2)}\\]<br>`
+            //@ts-ignore
+            idx++;
+            //console.log(results);
+            //notebook?.classList.add("cover")
+            openNote?.click();
+
+            if (results.length >= 2)
+            {
+                computeChart();
+                openChart?.classList.remove("hidden")
+            }
         }
+
+        if (part === 2)
+        {
+            let lt = Math.log(totalTime / 1000);
+            let Tinv = 1 / (interaction[1].temperature + 273)
+
+            results2.push([Tinv, lt])
+
+            resultsElement2.innerHTML += `\\[t_{${idx2}} = ${(totalTime / 1000).toFixed(2)}s \\implies \\ln{t_{${idx2}}} = ${lt.toFixed(2)}\\]`
+            resultsElement2.innerHTML += `\\[T_{${idx2}} = ${(interaction[1].temperature + 273).toFixed(1)}K \\implies \\frac{1}{T_{${idx2}}} = ${Tinv.toFixed(5)}\\]<br>`
+
+            idx2++;
+            openNote2?.click();
+
+            if (results2.length >= 2)
+            {
+                computeChart2();
+                openChart2?.classList.remove("hidden")
+            }
+            
+        }
+
+        totalTime = 0;
 
     }
 
@@ -712,11 +815,35 @@ mixBtn?.addEventListener("mouseup", (e) =>
 
 })
 
+let heatBtn = document.getElementById("heat")
+
+heatBtn?.addEventListener("click", () =>
+{
+    heatToggle = !heatToggle;
+    if (heatToggle)
+    {
+        // heatBtn.style.background = "#28587B"
+        // heatBtn.style.color = "#fafafa"
+        heatBtn.style.boxShadow = "inset 0px 0px 0px 4px #28587B"
+    } else
+    {
+        // heatBtn.style.background = "#fafafa"
+        // heatBtn.style.color = "#28587B"
+        heatBtn.style.boxShadow = "inset 0px 0px 0px 4px transparent"
+    }
+})
+
 //@ts-ignore
 let orderElement: HTMLDivElement = document.getElementById("order");
 
 //@ts-ignore
+let orderElement2: HTMLDivElement = document.getElementById("order2");
+
+//@ts-ignore
 let chart: Chart = null;
+
+//@ts-ignore
+let chart2: Chart = null;
 
 function computeChart()
 {
@@ -842,7 +969,148 @@ function computeChart()
 
     let kp = Math.pow(10, linearf(0));
 
-    orderElement.innerHTML = `<br>\\[\\log_{10}(k^\\prime) = f(0) = ${linearf(0).toFixed(2)} \\implies k^\\prime = ${Math.pow(10, linearf(0)).toFixed(3)} \\]\\[m = \\frac{${by.toFixed(2)} - ${ay < 0 ? "(" : ""}${ay.toFixed(2)}${ay < 0 ? ")" : ""}}{${bx.toFixed(2)} - ${ax < 0 ? "(" : ""}${ax.toFixed(2)}${ay < 0 ? ")" : ""}} = ${gradient.toFixed(2)} \\sim ${Math.round(gradient)} = a\\]\\[t_{\\frac{1}{2}} = \\frac{ln2}{k^\\prime} = \\frac{${Math.LN2.toFixed(3)}}{${kp.toFixed(3)}} = ${(Math.LN2 / kp).toFixed(3)}s\\]`
+    orderElement.innerHTML = `<br>\\[\\log_{10}(k^\\prime) = f(0) = ${linearf(0).toFixed(2)} \\implies k^\\prime = ${Math.pow(10, linearf(0)).toFixed(3)} \\]\\[m = \\frac{${by.toFixed(2)} - ${ay < 0 ? "(" : ""}${ay.toFixed(2)}${ay < 0 ? ")" : ""}}{${bx.toFixed(2)} - ${ax < 0 ? "(" : ""}${ax.toFixed(2)}${ay < 0 ? ")" : ""}} = ${gradient.toFixed(2)} \\sim ${Math.round(gradient)} = a\\]\\[t_{\\frac{1}{2}} = \\frac{\\ln{2}}{k^\\prime} = \\frac{${Math.LN2.toFixed(3)}}{${kp.toFixed(3)}} = ${(Math.LN2 / kp).toFixed(3)}s\\]`
+
+    //@ts-ignore
+    MathJax.startup.promise.then(() => {
+        //@ts-ignore
+        MathJax.typesetClear();
+        //@ts-ignore
+        MathJax.typeset();
+    })
+
+}
+
+function computeChart2()
+{
+    let res = regression.linear(results2);
+    let gradient = res.equation[0];
+    let yinter = res.equation[1];
+
+    let biggest = -Infinity;
+    let smallest = Infinity;
+
+    results2.forEach((el) =>
+    {
+        if (el[0] > biggest)
+            biggest = el[0]
+        if (el[0] < smallest)
+            smallest = el[0]
+    })
+
+    smallest -= 0.00005
+    biggest += 0.00005
+
+    let data: ChartData = 
+    {
+        datasets:
+        [
+            {
+                type: 'scatter',
+                label: "Punct experimental",
+                data: results2.map(el => {return {x: el[0], y: el[1]}}),
+                backgroundColor: "#28587B",
+                pointRadius: 5
+            },
+            {
+                type: 'line',
+                label: "Aproximare",
+                data: 
+                [
+                    {x: smallest, y: gradient * smallest + yinter},
+                    {x: biggest, y: gradient * biggest + yinter}
+                ],
+                backgroundColor: "#212121",
+                borderColor: "#212121"
+            }
+        ]
+    };
+
+    if (chart2 != null)
+    {
+        chart2.destroy()
+    }
+
+    //@ts-ignore
+    chart2 = new Chart(
+        //@ts-ignore
+        document.getElementById("c_canv2").getContext("2d"),
+        {
+            type: 'scatter',
+            data: data,
+            options: 
+            {
+                scales: 
+                {
+                  x: 
+                  {
+                    type: 'linear',
+                    position: 'bottom'
+                  }
+                },
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Dependența Timp - Temperatură`
+                    }
+                },
+                elements:
+                {
+                    line:
+                    {
+                        borderDash: [10, 5],
+                        borderWidth: 1
+                    }
+                }
+            }
+            
+        }
+    )
+
+    chartOpened2 = false;
+
+    let chartFlash = setInterval(() =>
+        {
+            if (chartOpened2)
+            {
+                //@ts-ignore
+                openChart2.style.background = "#87da72"
+                clearInterval(chartFlash);
+                return
+            }
+        
+            //@ts-ignore
+            if (openChart2.style.background == "rgb(135, 218, 114)")
+            {
+                //@ts-ignore
+                openChart2.style.background = "#fafafa"
+            } else
+            {
+                //@ts-ignore
+                openChart2.style.background = "#87da72"
+            }
+        
+        }, 750)
+
+    chart2.render();
+    
+
+    let linearf = (n: number) => gradient * n + yinter;
+
+    let ax = smallest;
+    let bx = biggest;
+    let ay = linearf(smallest);
+    let by = linearf(biggest);
+
+    let R = 8.31
+
+    let A = Math.pow(Math.E, linearf(0));
+    let Astr = A.toExponential(2);
+    let Pstr = Astr.substring(Astr.length - 2);
+    Astr = Astr.substring(0, Astr.length - 3);
+
+    orderElement2.innerHTML = `<br>\\[m = \\frac{${by.toFixed(2)} - ${ay < 0 ? "(" : ""}${ay.toFixed(2)}${ay < 0 ? ")" : ""}}{${bx.toFixed(5)} - ${ax < 0 ? "(" : ""}${ax.toFixed(5)}${ay < 0 ? ")" : ""}} = ${gradient.toFixed(2)} = \\frac{E_a}{R}\\]\\[E_a = m \\cdot R = ${gradient} \\cdot ${R} = ${(R * gradient).toFixed(2)}\\] \\[\\ln{A} = f(0) = ${linearf(0).toFixed(2)} \\implies A = ${Astr}\\cdot10^{${Pstr}} \\]`
 
     //@ts-ignore
     MathJax.startup.promise.then(() => {
@@ -858,6 +1126,8 @@ returnBtn?.addEventListener("mouseup", (e) =>
 {
     if (notebook?.classList.contains("cover"))
         openNote?.click();
+    if (notebook2?.classList.contains("cover"))
+        openNote2?.click();
     clearInteraction()
 })
 
@@ -874,6 +1144,8 @@ pourBtn?.addEventListener("mouseup", () =>
 {
     if (notebook?.classList.contains("cover"))
         openNote?.click();
+    if (notebook2?.classList.contains("cover"))
+        openNote2?.click();
     pouring = false;
     //console.log("stop!");
 
@@ -887,17 +1159,76 @@ document.getElementById("ctx")?.addEventListener("mouseup", () =>
         openChart?.click();
     if (tutorial?.classList.contains("cover"))
         openTutorial?.click();
+
+    if (notebook2?.classList.contains("cover"))
+        openNote2?.click();
+    if (chartElement2?.classList.contains("cover"))
+        openChart2?.click();
+    if (tutorial2?.classList.contains("cover"))
+        openTutorial2?.click();
 })
 
 let rotSpeed = 45 / 1000
 
+//x must be holder2
+let position1 = new THREE.Vector3()
+let target1 = new THREE.Vector3()
+
+let position2 = new THREE.Vector3()
+let target2 = new THREE.Vector3()
+
+let position0 = new THREE.Vector3()
+let target0 = new THREE.Vector3()
+
+const camLerp = 0.5/1000;
+let camAlpha = 0;
+
+let camTargetPos = new THREE.Vector3();
+let camTargetTarget = new THREE.Vector3();
+
+let camTransition = false;
+
+//@ts-ignore
+let tempElement: HTMLDivElement = document.getElementById("temp");
 
 function render() {
     requestAnimationFrame(render);
     
+    updateButtons();
+
     deb.delta = delta();
 
     react();
+
+    if (camTransition)
+    {
+        if (camAlpha <= 1)
+        {
+            cam.position.lerp(camTargetPos, camAlpha);
+            controls.target.lerp(camTargetTarget, camAlpha);
+            controls.update();
+            camAlpha += camLerp * deb.delta;
+        } else
+        {
+            camTransition = false;
+            console.log(controls.target);
+        }
+    }
+
+    tempElement.innerHTML = `${heaterTemp.toFixed(1)}&degC`
+    if (heatToggle)
+        heaterTemp += heatGain * deb.delta;
+    else if (heaterTemp > 25)
+        heaterTemp -= heatLose * deb.delta;
+    else if (heaterTemp < 25)
+            heaterTemp = 25
+
+    part2Holders.forEach((el) =>
+    {
+        el.temperature = heaterTemp;
+    })
+
+    updateTooltip(mCoord);
 
     if (pouring)
     {
@@ -997,6 +1328,28 @@ function delta(): number
     return t;
 }
 
+const part1Select = document.getElementById("btn1")
+const part2Select = document.getElementById("btn2")
+
+part1Select?.addEventListener("click", () =>
+{
+    camTransition = true;
+    camAlpha = 0;
+    camTargetPos = position1;
+    camTargetTarget = target1;
+    part = 1;
+})
+
+part2Select?.addEventListener("click", () =>
+{
+    camTransition = true;
+    camAlpha = 0;
+    camTargetPos = position2;
+    camTargetTarget = target2;
+    part = 2;
+})
+    
+
 document.addEventListener("keyup", (e) =>
 {
     if (e.key === 'k')
@@ -1007,10 +1360,35 @@ document.addEventListener("keyup", (e) =>
             totalTime = ttime > (60 * 1000) ? ttime - (10 * 1000) : ttime * 0.9
         }
     }
+    if (e.key === '1')
+    {
+        camTransition = true;
+        camAlpha = 0;
+        camTargetPos = position1;
+        camTargetTarget = target1;
+        part = 1;
+    }
+    if (e.key === '2')
+    {
+        camTransition = true;
+        camAlpha = 0;
+        camTargetPos = position2;
+        camTargetTarget = target2;
+        part = 2;
+    }
+    if (e.key === '0')
+    {
+        camTransition = true;
+        camAlpha = 0;
+        camTargetPos = position0;
+        camTargetTarget = target0;
+        part = 0;
+    }
 })
 
 const tooltipElement = document.getElementById("tooltip");
 
+let mCoord = new THREE.Vector2();
 renderer.domElement.addEventListener("mousemove", (e) =>
 {
     let renderSize = new THREE.Vector2();
@@ -1019,6 +1397,18 @@ renderer.domElement.addEventListener("mousemove", (e) =>
     mouse.x = mouse.x * 2 - 1;
     mouse.y = mouse.y * 2 - 1;
     mouse.y *= -1
+
+    mCoord.copy(mouse)
+    if (part === 0)
+        return;
+    
+    updateTooltip(mouse);
+
+
+})
+
+function updateTooltip(mouse: THREE.Vector2)
+{
     let raycaster = new THREE.Raycaster();
     //console.log(`mouse: [${mouse.toArray().map(el => el.toFixed(2))}]`)
     raycaster.setFromCamera(mouse, cam);
@@ -1043,6 +1433,13 @@ renderer.domElement.addEventListener("mousemove", (e) =>
             str = "Golll"
         //@ts-ignore
         tooltipElement.innerHTML = str.substring(0, str.length - 2)
+        //@ts-ignore
+        if (hld.temperature > 25)
+        {
+            //@ts-ignore
+            tooltipElement.innerHTML += `<br>${hld.temperature.toFixed(1)
+            }&degC`
+        }
         //console.log(str)
         //@ts-ignore
         tooltipElement.classList.remove("hidden");
@@ -1057,9 +1454,7 @@ renderer.domElement.addEventListener("mousemove", (e) =>
         tooltipElement.classList.add("hidden");
         
     }
-
-
-})
+}
 
 
 function computeTime(obj: LiquidHolder): number
@@ -1068,8 +1463,11 @@ function computeTime(obj: LiquidHolder): number
     if (obj.getFillage(tio) == 0)
         return 10000;
 
-    //126 / V(mL)
-    return 126 / (obj.getFillage(tio) * obj.capacity) * 1000
+    //126 / V(mL) - at 25C
+    //return 126 / (obj.getFillage(tio) * obj.capacity) * 1000
+
+    //temperature dependant
+    return (5 / (obj.getFillage(tio) * obj.capacity)) * (68.61 * Math.pow(0.9604, obj.temperature)) * 1000
 }
 
 let totalTime = 0;
@@ -1143,9 +1541,11 @@ function interact()
     // console.log("Interaction!!");
     // console.log(interaction);
     //let h1 = holderMap.get()
-    interaction[1].translate(new THREE.Vector3(controls.target.x, controls.target.y + interaction[1].currentSize.y / 2, 0));
+
+    interaction[1].translate(new THREE.Vector3(controls.target.x, controls.target.y + interaction[1].currentSize.y / 2, controls.target.z * 0.8));
+
     let biggest = Math.max(...interaction[0].currentSize.toArray())
-    interaction[0].translate(new THREE.Vector3(controls.target.x, controls.target.y, 0).add(new THREE.Vector3(0 + interaction[1].currentSize.x / 2 + biggest * 0.7, interaction[1].currentSize.y / 2 + interaction[0].currentSize.y * 0.75, 0)))
+    interaction[0].translate(new THREE.Vector3(controls.target.x, controls.target.y, 0).add(new THREE.Vector3(0 + interaction[1].currentSize.x / 2 + biggest * 0.7, interaction[1].currentSize.y / 2 + interaction[0].currentSize.y * 0.75, controls.target.z * 0.8)))
     //controls.target.copy(interaction[1].holderMesh.position)
 
     //interaction = [];
@@ -1225,6 +1625,14 @@ async function getMesh(url: string): Promise<THREE.Mesh>
     })
 }
 
+const loadingScreen = true;
+
+let part2Holders: LiquidHolder[] = []
+let heaterTemp = 25;
+let heatGain = 0.75/1000;
+let heatLose = 0.01/1000;
+let heatToggle = false;
+
 
 async function setup()
 {
@@ -1232,29 +1640,39 @@ async function setup()
     let loader: HTMLDivElement = document.getElementById("loader");
     let st = "-- ..--- ----."
     let idx = 0;
-    let tanim = setInterval(() =>
+    if (loadingScreen)
     {
-        if (idx >= st.length)
+        let tanim = setInterval(() =>
         {
-            loader.style.opacity = "0";
-            loader.addEventListener("transitionend", function list()
+            if (idx >= st.length)
             {
-                loader.classList.add("hidden")
-                loader.removeEventListener("transitionend", list);
-            })
-            clearInterval(tanim);
-            return;
-        }
-        loader.innerHTML += st[idx];
-        idx++;
+                loader.style.opacity = "0";
+                loader.addEventListener("transitionend", function list()
+                {
+                    loader.classList.add("hidden")
+                    loader.removeEventListener("transitionend", list);
+                })
+                clearInterval(tanim);
+                return;
+            }
+            loader.innerHTML += st[idx];
+            idx++;
 
-    }, 200)
+        }, 200)
+    } else
+    {
+        loader.classList.add("hidden");
+    }
     
     //let table = await getMesh("./assets/table/table3.gltf");
     let table = (await glftLoader.loadAsync("./assets/table/table3.gltf")).scene;
-    table.rotateY(toRadians(180))
+    table.position.x = 0;
     table.scale.setScalar(50)
+    let table2 = table.clone()
+    table.rotateY(toRadians(180))
+
     scene.add(table);
+    scene.add(table2);
 
     let tableSize = new THREE.Vector3;
     let tableCenter = new THREE.Vector3;
@@ -1263,6 +1681,11 @@ async function setup()
     tableBox.getSize(tableCenter)
 
     table.position.y += tableSize.y / 2
+    table.position.z = -100;
+
+    table2.position.y += tableSize.y / 2;
+    table2.position.z = 100;
+
     //table.position.x = -25
 
     //table.applyQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, toRadians(35), 0)))
@@ -1273,6 +1696,7 @@ async function setup()
     holder1.scale.setScalar(1)
     let holder2 = holder1.clone();
 
+
     let holderSize = new THREE.Vector3();
     let holderCenter = new THREE.Vector3();
     let holderBox = new THREE.Box3().setFromObject(holder1);
@@ -1282,12 +1706,12 @@ async function setup()
     holder1.rotation.setFromQuaternion(table.quaternion)
     holder2.rotation.setFromQuaternion(holder1.quaternion)
 
-
     holder1.position.copy(new THREE.Vector3(table.position.x, table.position.y + tableSize.y / 2 * 0.5, table.position.z - tableSize.z / 2 * 0.9))
     holder2.position.copy(new THREE.Vector3().copy(holder1.position).add(new THREE.Vector3(holderSize.x + 1, 0, 0)))
+
+
     scene.add(holder1)
     scene.add(holder2)
-
     
     //Beakers
 
@@ -1391,6 +1815,17 @@ async function setup()
         )))
     }
 
+    let burnerModel = (await glftLoader.loadAsync("./assets/burner/scene.gltf")).scene
+    let standModel = (await glftLoader.loadAsync("./assets/stand/scene.gltf")).scene
+    burnerModel.scale.setScalar(50)
+    burnerModel.position.copy(new THREE.Vector3(table2.position.x, table2.position.y + tableSize.y * 0.215, table2.position.z + tableSize.y / 2 * 0.3))
+
+    standModel.scale.setScalar(5)
+    standModel.position.copy(new THREE.Vector3(table2.position.x, table2.position.y + tableSize.y * 0.325, table2.position.z + tableSize.y / 2 * 0.3))
+    scene.add(burnerModel);
+    //scene.add(new THREE.BoxHelper(standModel))
+    scene.add(standModel);
+
     let beakerModel = await getMesh("./assets/glasses/beaker.gltf")
 
     let beakerSize = new THREE.Vector3;
@@ -1403,28 +1838,88 @@ async function setup()
     let holderAcid = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.6, color:  0xdfe607}), 0.7, 620, 0.8, 0.95, "H<sub>2</sub>SO<sub>4</sub>");
     let holderNa = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.7, color:  0xcdcfa9}), 0.7, 620, 0.8, 0.95, "Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>");
 
+    let holderWater2 = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.6, color: 0x07cce6}), 0.7, 620, 0.8, 0.95, water);
+    let holderAcid2 = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.6, color:  0xdfe607}), 0.7, 620, 0.8, 0.95, acid);
+    let holderNa2 = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.7, color:  0xcdcfa9}), 0.7, 620, 0.8, 0.95, tio);
+
+    beakerModel.scale.copy(new THREE.Vector3(1.75, 1.2, 1.75));
+    let heaterBeaker = new LiquidHolder(beakerModel, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.6, color: 0x07cce6}), 0.55, 620, 0.8, 0.95, "H<sub>2</sub>O");
+    heaterBeaker.order = 2;
     holders.push(holderWater, holderAcid, holderNa);
+    holders.push(holderWater2, holderAcid2, holderNa2);
+
     interactableObjects.push(holderWater.holderMesh, holderAcid.holderMesh, holderNa.holderMesh)
+    interactableObjects.push(holderWater2.holderMesh, holderAcid2.holderMesh, holderNa2.holderMesh)
 
     let q = new THREE.Quaternion().setFromEuler(new THREE.Euler( 0, -toRadians(180), 0))
 
     holderWater.rest(new THREE.Vector3(table.position.x + tableSize.x / 2 * 0.6, table.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table.position.z - tableSize.z / 2 * 0.6))
 
-    
     holderAcid.rest(new THREE.Vector3(table.position.x + tableSize.x / 2 * 0.75, table.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table.position.z - tableSize.z / 2 * 0.6))
 
     holderNa.rest(new THREE.Vector3(table.position.x + tableSize.x / 2 * 0.9, table.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table.position.z - tableSize.z / 2 * 0.6))
+
+
+    heaterBeaker.translate(new THREE.Vector3(table2.position.x, table2.position.y + tableSize.y * 0.335 + beakerSize.y, table2.position.z + tableSize.y / 2 * 0.3))
+    heaterBeaker.alpha = 1
+    heaterBeaker.recomputeMesh()
+
+
+    holderWater2.rest(new THREE.Vector3(table2.position.x - tableSize.x / 2 * 0.2, table2.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table2.position.z + tableSize.z / 2 * 0.6))
+
+    holderAcid2.rest(new THREE.Vector3(table2.position.x - tableSize.x / 2 * 0.35, table2.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table2.position.z + tableSize.z / 2 * 0.6))
+
+    holderNa2.rest(new THREE.Vector3(table2.position.x - tableSize.x / 2 * 0.5, table2.position.y + tableSize.y / 2 * 0.2 + beakerSize.y / 2, table2.position.z + tableSize.z / 2 * 0.6))
 
     holderWater.restQuaternion(q)
     holderAcid.restQuaternion(q)
     holderNa.restQuaternion(q)
 
 
+    for(let i = 0; i < 8; i++)
+    {
+        //let t = new LiquidHolder(tubeMesh, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.3, color: 0xfffd80}), 5/12, 12, 0.8, 0.85, i % 2 == 0 ? tio : acid)
+        let t = new LiquidHolder(tubeMesh, new THREE.MeshLambertMaterial({transparent: true, opacity: 0.3, color: 0xfffd80}), 0, 12, 0.8, 0.85)
+        holders.push(t);
+        part2Holders.push(t);
+        interactableObjects.push(t.holderMesh);
+        t.rest(new THREE.Vector3(heaterBeaker.holderMesh.position.x, heaterBeaker.holderMesh.position.y - beakerSize.y / 2, heaterBeaker.holderMesh.position.z).add(new THREE.Vector3(beakerSize.x * 0.5, 0, beakerSize.z * 0.5).multiply(new THREE.Vector3(Math.cos(toRadians(360 / 8 * i)), 1, Math.sin(toRadians(360 / 8 * i))))))
+        t.holderMesh.renderOrder = 0
+        t.order = 0;
+    }
+
     // cam.position.z = tuber.holderMesh.position.z;
     // cam.position.x = tuber.holderMesh.position.x;
     // cam.position.y = tuber.holderMesh.position.y + 20;
-    cam.position.copy(new THREE.Vector3(holder2.position.x, 60, 25))
-    controls.target = new THREE.Vector3().copy(holder2.position).add(new THREE.Vector3(0, holderSize.y *0.2, 0))
+
+    //cam.position.copy(new THREE.Vector3(holder2.position.x, 60, 25))
+
+    //PART 1
+    position1.copy(new THREE.Vector3(holder2.position.x, 60, -75));
+    target1.copy(holder2.position).add(new THREE.Vector3(0, holderSize.y *0.2, 0));
+
+    //PART2
+    position2.copy(new THREE.Vector3(heaterBeaker.holderMesh.position.x + 5, 80, 80));
+    target2.copy(standModel.position);
+
+    position0.copy(new THREE.Vector3(-100, 60, 0));
+    target0.copy(new THREE.Vector3(0, 60, 0));
+
+    if (part === 0)
+    {
+        cam.position.copy(position0);
+        controls.target.copy(target0);
+
+        
+
+    } else
+    {
+        cam.position.copy(part === 1 ? position1 : position2);
+        controls.target.copy(part === 1 ? target1 : target2);
+    }
+    
+    controls.update();
+    //controls.target = new THREE.Vector3().copy(holder2.position).add(new THREE.Vector3(0, holderSize.y *0.2, 0))
     //computeChart();
     //controls.target = new THREE.Vector3().copy(holderWater.holderMesh.position)
 
@@ -1448,4 +1943,34 @@ async function setup()
 }
 
 setup();
+
+let part0Element = document.getElementById("part0")
+let part1Element = document.getElementById("part1")
+let part2Element = document.getElementById("part2")
+
+
+function updateButtons() 
+{
+    if (part === 0)
+    {
+        part0Element?.classList.remove("hidden");
+        part1Element?.classList.add("hidden");
+        part2Element?.classList.add("hidden");
+    }
+
+    if (part === 1)
+    {
+        part0Element?.classList.add("hidden");
+        part1Element?.classList.remove("hidden");
+        part2Element?.classList.add("hidden");
+    }
+
+    if (part === 2)
+    {
+        part0Element?.classList.add("hidden");
+        part1Element?.classList.add("hidden");
+        part2Element?.classList.remove("hidden");
+    }
+
+}
 

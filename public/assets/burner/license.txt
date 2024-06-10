@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bunsen Burner
+* source:	https://sketchfab.com/3d-models/bunsen-burner-5185e41b2beb48fa8f15ca3707f43e10
+* author:	Dreamsoft Innovations Private Limited (https://sketchfab.com/dreamsoftin)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bunsen Burner" (https://sketchfab.com/3d-models/bunsen-burner-5185e41b2beb48fa8f15ca3707f43e10) by Dreamsoft Innovations Private Limited (https://sketchfab.com/dreamsoftin) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
